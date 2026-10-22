@@ -1,7 +1,7 @@
 # Oral exam guide
 
 ## A five minute demonstration
-Run `scripts/run.py smoke` or use the README's Swagger walkthrough. Show the three independent process IDs, Ali's list, export of dataset 1, retrieval of the CSV, rejected dataset 2 read, and rejected dataset 2 export. Then show Admin metadata while explaining why admin cannot read other users' rows. Open the access-control matrix and the matching Resource checks.
+Run `py -3.12 run.py smoke` or use the README's Swagger walkthrough. Show the three independent process IDs, Ali's list, export of dataset 1, retrieval of the CSV, rejected dataset 2 read, and rejected dataset 2 export. Then show Admin metadata while explaining why admin cannot read other users' rows. Open the access-control matrix and the matching Resource checks.
 
 ## Questions to practise
 

@@ -15,7 +15,7 @@
 | All four SSDLC phases and initial plan commit | docs/initial_ssdlc_plan.md and Git history |
 | Asset register, trust boundaries, matrix and STRIDE | docs/security_design.md |
 | Reproducible installation and unapproved artifact rejection | vendor/, hash lock, manifest and gate tests |
-| Jenkins build, static and dependency checks | Jenkinsfile and scripts/ci.py |
+| Jenkins build, static and dependency checks | Windows Jenkinsfile, run.py and scripts/ci.py |
 | Fresh test environment and artifacts | Temporary process fixture; reports archived by Jenkinsfile |
 | Pipeline on pushes and PRs | Multibranch/webhook setup documented; hosted configuration still needed |
 | Gate decisions and production discussion | Pipeline failure policy, report sections 5–7 |

@@ -45,6 +45,7 @@ def main():
                 "scripts",
                 "tests",
                 "helper/src",
+                "run.py",
                 "--output-format",
                 "json",
                 "--output-file",
@@ -53,7 +54,17 @@ def main():
         ),
         (
             "format",
-            ["-m", "ruff", "format", "--check", "workspace_app", "scripts", "tests", "helper/src"],
+            [
+                "-m",
+                "ruff",
+                "format",
+                "--check",
+                "workspace_app",
+                "scripts",
+                "tests",
+                "helper/src",
+                "run.py",
+            ],
         ),
         (
             "bandit",
