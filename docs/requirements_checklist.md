@@ -19,7 +19,7 @@
 | Fresh test environment and artifacts | Temporary process fixture; reports archived by Jenkinsfile |
 | Pipeline on pushes and PRs | Multibranch/webhook setup documented; hosted configuration still needed |
 | Gate decisions and production discussion | Pipeline failure policy, report sections 5–7 |
-| Around 2000–2500 narrative words | Report narrative 2469 words; seven main pages plus references/navigation |
+| Around 2000–2500 narrative words | Report narrative 2487 words; seven main pages plus references/navigation |
 | Source history, README and submission artifacts | ZIP includes .git, source, evidence and submission/ |
 | AI declaration | submission/AI_Use_Declaration.docx and PDF; personalize before submitting |
 
