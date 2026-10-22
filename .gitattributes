@@ -1,0 +1,5 @@
+# Keep text files consistent across Windows and Linux
+* text=auto eol=lf
+
+# Preserve the helper package exactly
+*.whl binary
