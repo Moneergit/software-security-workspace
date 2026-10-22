@@ -1,4 +1,5 @@
 """CSV serialization has no file or network access."""
+
 import csv
 import io
 
