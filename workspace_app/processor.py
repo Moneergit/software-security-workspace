@@ -1,4 +1,5 @@
 """Has no resource signing key, database handle or account file."""
+
 import os
 from typing import Annotated
 
@@ -31,6 +32,8 @@ def export(dataset_id: int, body: ExportJob, token: Annotated[str, Depends(beare
     target = RESOURCE_URL + f"/jobs/{dataset_id}"
     data = remote("GET", target, body.resource_token)
     values = data["values"]
-    if len(values) > 100 or any(type(value) is not int or abs(value) > 1_000_000 for value in values):
+    if len(values) > 100 or any(
+        type(value) is not int or abs(value) > 1_000_000 for value in values
+    ):
         raise HTTPException(502, "Invalid resource output")
     return remote("PUT", target, body.resource_token, {"csv": render_csv(values)})

@@ -1,4 +1,5 @@
 """Authenticates seeded users and delegates narrowly scoped operations."""
+
 import hashlib
 import hmac
 import json
@@ -7,10 +8,22 @@ from typing import Annotated
 
 from fastapi import Depends, FastAPI, HTTPException, Query
 
-from workspace_app.common import DatasetInput, LoginInput, bearer, issue, key, remote, verify
+from workspace_app.common import (
+    DatasetInput,
+    LoginInput,
+    bearer,
+    issue,
+    key,
+    remote,
+    verify,
+)
 
 app = FastAPI(title="Private Dataset Workspace")
-USER_KEY, RESOURCE_KEY, PROCESSOR_KEY = key("USER_KEY"), key("RESOURCE_KEY"), key("PROCESSOR_KEY")
+USER_KEY, RESOURCE_KEY, PROCESSOR_KEY = (
+    key("USER_KEY"),
+    key("RESOURCE_KEY"),
+    key("PROCESSOR_KEY"),
+)
 RESOURCE_URL = os.environ["RESOURCE_URL"]
 PROCESSOR_URL = os.environ["PROCESSOR_URL"]
 with open(os.environ["ACCOUNTS"], encoding="utf-8") as account_file:
@@ -42,8 +55,12 @@ def login(body: LoginInput):
     digest = hashlib.scrypt(body.password.encode(), salt=salt, n=16384, r=8, p=1).hex()
     if user is None or not hmac.compare_digest(digest, user["digest"]):
         raise HTTPException(401, "Invalid credentials")
-    return {"access_token": issue(USER_KEY, "api", body.username, "session",
-                                  role=user["role"], ttl=900), "token_type": "bearer"}
+    return {
+        "access_token": issue(
+            USER_KEY, "api", body.username, "session", role=user["role"], ttl=900
+        ),
+        "token_type": "bearer",  # nosec B105: OAuth response scheme, not a password.
+    }
 
 
 @app.post("/datasets", status_code=201)
@@ -64,8 +81,12 @@ def read(dataset_id: int, c: Annotated[dict, Depends(session)]):
 @app.post("/datasets/{dataset_id}/export")
 def export(dataset_id: int, c: Annotated[dict, Depends(session)]):
     process_token = issue(PROCESSOR_KEY, "processor", c["sub"], "process", dataset_id)
-    return remote("POST", PROCESSOR_URL + f"/export/{dataset_id}", process_token,
-                  {"resource_token": grant(c, "export", dataset_id)})
+    return remote(
+        "POST",
+        PROCESSOR_URL + f"/export/{dataset_id}",
+        process_token,
+        {"resource_token": grant(c, "export", dataset_id)},
+    )
 
 
 @app.get("/results/{dataset_id}")

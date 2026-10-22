@@ -1,4 +1,5 @@
 """Owns records and results. No other component opens the database."""
+
 import json
 import logging
 import os
@@ -54,8 +55,10 @@ def health():
 def create(body: DatasetInput, c: Annotated[dict, Depends(claims)]):
     authority(c, "create")
     with database() as connection:
-        cursor = connection.execute("INSERT INTO datasets(owner,title,values_json) VALUES(?,?,?)",
-                                    (c["sub"], body.title, json.dumps(body.values)))
+        cursor = connection.execute(
+            "INSERT INTO datasets(owner,title,values_json) VALUES(?,?,?)",
+            (c["sub"], body.title, json.dumps(body.values)),
+        )
         return {"id": cursor.lastrowid}
 
 
@@ -63,9 +66,11 @@ def create(body: DatasetInput, c: Annotated[dict, Depends(claims)]):
 def search(c: Annotated[dict, Depends(claims)], q: str = Query(default="", max_length=80)):
     authority(c, "list")
     with database() as connection:
-        # V1: data becomes SQL syntax in the intentionally vulnerable milestone.
+        # Values stay data even when q contains SQL metacharacters.
         rows = connection.execute(
-            f"SELECT id,owner,title FROM datasets WHERE owner='{c['sub']}' AND title LIKE '%{q}%'").fetchall()
+            "SELECT id,owner,title FROM datasets WHERE owner=? AND title LIKE ?",
+            (c["sub"], "%" + q + "%"),
+        ).fetchall()
         return [dict(row) for row in rows]
 
 
@@ -73,11 +78,12 @@ def search(c: Annotated[dict, Depends(claims)], q: str = Query(default="", max_l
 def read(dataset_id: int, c: Annotated[dict, Depends(claims)]):
     authority(c, "read", dataset_id)
     with database() as connection:
-        # V2: a valid grant is incorrectly treated as proof of ownership.
-        row = connection.execute("SELECT * FROM datasets WHERE id=?", (dataset_id,)).fetchone()
-        if row is None:
-            raise HTTPException(404, "Dataset unavailable")
-        return {"id": row["id"], "title": row["title"], "values": json.loads(row["values_json"])}
+        row = owned(connection, dataset_id, c["sub"])
+        return {
+            "id": row["id"],
+            "title": row["title"],
+            "values": json.loads(row["values_json"]),
+        }
 
 
 @app.get("/admin/metadata")
@@ -93,10 +99,7 @@ def metadata(c: Annotated[dict, Depends(claims)]):
 def job_read(dataset_id: int, c: Annotated[dict, Depends(claims)]):
     authority(c, "export", dataset_id)
     with database() as connection:
-        # V4: composition bug. The service accepts a job without rechecking its user.
-        row = connection.execute("SELECT * FROM datasets WHERE id=?", (dataset_id,)).fetchone()
-        if row is None:
-            raise HTTPException(404, "Dataset unavailable")
+        row = owned(connection, dataset_id, c["sub"])
         return {"values": json.loads(row["values_json"])}
 
 
@@ -109,9 +112,17 @@ class ExportResult(BaseModel):
 def job_save(dataset_id: int, body: ExportResult, c: Annotated[dict, Depends(claims)]):
     authority(c, "export", dataset_id)
     with database() as connection:
-        connection.execute("INSERT INTO results(dataset_id,owner,csv) VALUES(?,?,?) "
-                           "ON CONFLICT(dataset_id,owner) DO UPDATE SET csv=excluded.csv",
-                           (dataset_id, c["sub"], body.csv))
+        row = owned(connection, dataset_id, c["sub"])
+        # Recompute the expected numeric serialization before trusting processor output.
+        values = json.loads(row["values_json"])
+        expected = "value\n" + "".join(f"{value}\n" for value in values)
+        if body.csv != expected:
+            raise HTTPException(422, "CSV does not match the authorized dataset")
+        connection.execute(
+            "INSERT INTO results(dataset_id,owner,csv) VALUES(?,?,?) "
+            "ON CONFLICT(dataset_id,owner) DO UPDATE SET csv=excluded.csv",
+            (dataset_id, c["sub"], body.csv),
+        )
         return {"dataset_id": dataset_id, "status": "ready"}
 
 
@@ -119,8 +130,10 @@ def job_save(dataset_id: int, body: ExportResult, c: Annotated[dict, Depends(cla
 def result(dataset_id: int, c: Annotated[dict, Depends(claims)]):
     authority(c, "result", dataset_id)
     with database() as connection:
-        row = connection.execute("SELECT csv FROM results WHERE dataset_id=? AND owner=?",
-                                 (dataset_id, c["sub"])).fetchone()
+        row = connection.execute(
+            "SELECT csv FROM results WHERE dataset_id=? AND owner=?",
+            (dataset_id, c["sub"]),
+        ).fetchone()
         if row is None:
             raise HTTPException(404, "Result unavailable")
         return {"csv": row["csv"]}
