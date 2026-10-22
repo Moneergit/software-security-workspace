@@ -1,0 +1,1 @@
+PASS: all 57 installed distributions match the approved inventory

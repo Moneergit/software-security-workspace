@@ -2,7 +2,7 @@ FFFF                                                                     [100%]
 =================================== FAILURES ===================================
 ____________________________ test_v1_sql_injection _____________________________
 
-client = <httpx.Client object at 0x7f1a0979c530>
+client = <httpx.Client object at 0x7f8b72cf1c70>
 
     def test_v1_sql_injection(client):
         response = client.get("/datasets", params={"q": "' OR 1=1 --"}, headers=auth(client))
@@ -10,12 +10,12 @@ client = <httpx.Client object at 0x7f1a0979c530>
 >       assert all(row["owner"] == "ali" for row in response.json()), json.dumps(response.json())
 E       AssertionError: [{"id": 1, "owner": "ali", "title": "Ali measurements"}, {"id": 2, "owner": "john", "title": "John measurements"}]
 E       assert False
-E        +  where False = all(<generator object test_v1_sql_injection.<locals>.<genexpr> at 0x7f1a0950f1d0>)
+E        +  where False = all(<generator object test_v1_sql_injection.<locals>.<genexpr> at 0x7f8b72cde9b0>)
 
 tests/test_http.py:58: AssertionError
 ___________________________ test_v2_cross_user_read ____________________________
 
-client = <httpx.Client object at 0x7f1a0952baa0>
+client = <httpx.Client object at 0x7f8b72cf3230>
 
     def test_v2_cross_user_read(client):
         response = client.get("/datasets/2", headers=auth(client))
@@ -27,7 +27,7 @@ E        +  where 200 = <Response [200 OK]>.status_code
 tests/test_http.py:63: AssertionError
 ______________________________ test_v3_row_quota _______________________________
 
-client = <httpx.Client object at 0x7f1a0955a5a0>
+client = <httpx.Client object at 0x7f8b72cf2300>
 
     def test_v3_row_quota(client):
         response = client.post("/datasets", headers=auth(client), json={"title": "Oversized", "values": [1] * 101})
@@ -39,7 +39,7 @@ E        +  where 201 = <Response [201 Created]>.status_code
 tests/test_http.py:68: AssertionError
 ________________________ test_v4_confused_deputy_export ________________________
 
-client = <httpx.Client object at 0x7f1a093b9d60>
+client = <httpx.Client object at 0x7f8b72d2d430>
 
     def test_v4_confused_deputy_export(client):
         response = client.post("/datasets/2/export", headers=auth(client))
@@ -54,4 +54,4 @@ FAILED tests/test_http.py::test_v1_sql_injection - AssertionError: [{"id": 1,...
 FAILED tests/test_http.py::test_v2_cross_user_read - AssertionError: {"id":2,...
 FAILED tests/test_http.py::test_v3_row_quota - AssertionError: {"id":3}
 FAILED tests/test_http.py::test_v4_confused_deputy_export - AssertionError: {...
-4 failed, 24 deselected in 1.35s
+4 failed, 24 deselected in 1.41s

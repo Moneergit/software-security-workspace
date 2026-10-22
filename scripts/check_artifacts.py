@@ -12,7 +12,7 @@ def verify_artifacts(directory: Path, manifest: Path):
     approved = json.loads(manifest.read_text(encoding="utf-8"))
     actual = {path.name for path in directory.iterdir() if path.is_file()}
     if actual != set(approved):
-        raise ValueError("Unapproved or missing artifact in vendor inventory")
+        raise ValueError("Unapproved or missing artifact in helper package inventory")
     for name, digest in approved.items():
         if hashlib.sha256((directory / name).read_bytes()).hexdigest() != digest:
             raise ValueError("Artifact digest mismatch: " + name)
@@ -20,8 +20,8 @@ def verify_artifacts(directory: Path, manifest: Path):
 
 
 def main():
-    count = verify_artifacts(ROOT / "vendor", ROOT / "dependencies.sha256.json")
-    with zipfile.ZipFile(ROOT / "vendor/workspace_csv-1.0.0-py3-none-any.whl") as wheel:
+    count = verify_artifacts(ROOT / "helper/packages", ROOT / "dependencies.sha256.json")
+    with zipfile.ZipFile(ROOT / "helper/packages/workspace_csv-1.0.0-py3-none-any.whl") as wheel:
         if (
             wheel.read("workspace_csv/__init__.py")
             != (ROOT / "helper/src/workspace_csv/__init__.py").read_bytes()

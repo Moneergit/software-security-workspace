@@ -1,15 +1,14 @@
 # Start here on Windows
 
-1. Extract the ZIP and open the `secure-workspace` folder.
-2. Open PowerShell in that folder. Install Python 3.12 x64 if needed.
-3. Run `py -3.12 run.py setup` once.
-4. Run `py -3.12 run.py run` and keep that window open.
-5. Open http://127.0.0.1:8000/docs.
-6. In a second PowerShell window in the same folder, run `py -3.12 run.py demo`.
-7. Run `py -3.12 run.py test` for the tests and `py -3.12 run.py check` for all analysis and test gates.
+Student: Moneer
 
-README.md explains each step briefly. No virtual-environment activation or Docker is needed. Setup installs the bundled dependencies and seeds the demonstration data automatically.
+1. Extract the ZIP and open the secure-workspace folder.
+2. Open PowerShell there and check that Python 3.12 x64 is installed.
+3. Run `py -3.12 run.py setup` once. This needs internet and installs everything into .venv.
+4. Run `py -3.12 run.py run` and open http://127.0.0.1:8000/docs.
+5. In a second PowerShell window, run `py -3.12 run.py demo`.
+6. Run `py -3.12 run.py test`, then `py -3.12 run.py check`.
 
-For publishing to GitHub and completing the assignment, follow docs/github_and_submission.md. Keep the supplied `.git` history. The editable report and PDF are in submission/; the declaration is a separate file there.
+README.md explains each step. The Windows GitHub and submission guide is in docs/ and submission/. Keep .git because the assignment requires the history. The one helper .whl is a required installable package; its editable code is in helper/src/.
 
-This is a Windows setup guide. The supplied execution evidence was produced on Linux; it is not evidence of a completed Windows run.
+The supplied execution evidence was produced on Linux. Collect actual Windows outputs by following the guide.

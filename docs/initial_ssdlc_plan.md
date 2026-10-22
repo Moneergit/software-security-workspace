@@ -21,3 +21,6 @@ Run real HTTP tests against three new processes and a temporary database. Demons
 Jenkins multibranch pipeline validates each push and pull request after webhook configuration. Archive test/static/dependency output. Any test failure, static security finding, unknown artifact, digest mismatch or vulnerability advisory blocks. Production requires TLS, separate OS identities/containers, protected keys, durable logging, backups, login throttling and ongoing updates. No production deployment in scope.
 
 Trace: private rows → cross-user disclosure → ownership/scoped grant → design and implementation → HTTP negative tests → block on failure. Build artifacts → tampered dependency → hash verification → build → manifest rejection test → block on mismatch.
+
+## Packaging update
+The initial plan proposed an offline third-party wheel bundle. The final lightweight distribution downloads approved public dependencies using a hash lock instead. The local helper remains a separately installed, digest-verified package. This changes packaging, not the required security gates.

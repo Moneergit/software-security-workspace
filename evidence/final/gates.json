@@ -1,0 +1,12 @@
+{
+  "artifacts": 0,
+  "environment": 0,
+  "compile": 0,
+  "helper-build": 0,
+  "ruff": 0,
+  "format": 0,
+  "bandit": 0,
+  "dependency-audit": 0,
+  "tests": 0,
+  "smoke": 0
+}

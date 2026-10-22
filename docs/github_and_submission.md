@@ -1,6 +1,6 @@
 # GitHub and submission guide for Windows
 
-The assignment requires a source repository with history, a report, saved evidence and a Jenkins pipeline. The local application is ready to run; these steps publish it and connect your own repository and Jenkins account. Commands below are for Windows PowerShell.
+The assignment requires a source repository with history, a report, saved evidence and a Jenkins pipeline. Student: Moneer. The local application is ready to run; these steps publish it and connect your own repository and Jenkins account. Commands below are for Windows PowerShell.
 
 ## 1. Verify the project before publishing
 
@@ -82,7 +82,7 @@ To see the running application, use `py -3.12 run.py run`, then open http://127.
 
 This is required to demonstrate the assignment's push and pull-request pipeline. If your course supplies Jenkins, use that server. Otherwise, set up a Jenkins instance and a Windows worker using the current Jenkins installation instructions. A full Jenkins server installation is separate from the Python application's setup.
 
-The provided Jenkinsfile expects a worker labelled **windows-python312**. On that worker, the Jenkins account must be able to run `git --version` and `py -3.12 --version`. The worker needs network access to the advisory service; dependencies themselves install from the bundled wheels.
+The provided Jenkinsfile expects a worker labelled **windows-python312**. On that worker, the Jenkins account must be able to run `git --version` and `py -3.12 --version`. The worker needs network access to the advisory service; initial setup also needs internet to download the hash-approved packages.
 
 In Jenkins:
 

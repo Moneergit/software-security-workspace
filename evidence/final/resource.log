@@ -1,0 +1,33 @@
+INFO:     Started server process [60]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+INFO:     Uvicorn running on http://127.0.0.1:51767 (Press CTRL+C to quit)
+INFO:     127.0.0.1:38994 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:39006 - "POST /datasets HTTP/1.1" 201 Created
+INFO:     127.0.0.1:39016 - "GET /datasets/3 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:39028 - "GET /datasets?q= HTTP/1.1" 200 OK
+INFO:     127.0.0.1:39038 - "GET /jobs/1 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:39050 - "PUT /jobs/1 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:39052 - "GET /results/1 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:39056 - "GET /results/1 HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:39068 - "GET /datasets?q=%27+OR+1%3D1+-- HTTP/1.1" 200 OK
+INFO:     resource denied subject=ali dataset=2
+INFO:     127.0.0.1:39070 - "GET /datasets/2 HTTP/1.1" 404 Not Found
+INFO:     resource denied subject=ali dataset=2
+INFO:     127.0.0.1:39082 - "GET /jobs/2 HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:39090 - "GET /admin/metadata HTTP/1.1" 200 OK
+INFO:     resource denied subject=admin dataset=1
+INFO:     127.0.0.1:39092 - "GET /datasets/1 HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:39106 - "GET /datasets/2 HTTP/1.1" 403 Forbidden
+INFO:     127.0.0.1:39108 - "GET /datasets/1 HTTP/1.1" 403 Forbidden
+INFO:     127.0.0.1:39118 - "GET /jobs/2 HTTP/1.1" 403 Forbidden
+INFO:     127.0.0.1:39120 - "GET /datasets/2 HTTP/1.1" 401 Unauthorized
+INFO:     resource denied subject=ali dataset=2
+INFO:     127.0.0.1:39126 - "GET /datasets/2 HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:39138 - "GET /admin/metadata HTTP/1.1" 403 Forbidden
+INFO:     resource denied subject=ali dataset=2
+INFO:     127.0.0.1:39142 - "GET /jobs/2 HTTP/1.1" 404 Not Found
+INFO:     Shutting down
+INFO:     Waiting for application shutdown.
+INFO:     Application shutdown complete.
+INFO:     Finished server process [60]

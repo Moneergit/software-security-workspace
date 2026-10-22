@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="0" failures="4" skipped="0" tests="4" time="1.354" timestamp="2026-10-22T11:46:03.260034+03:00" hostname="14a02f47f6f3"><testcase classname="tests.test_http" name="test_v1_sql_injection" time="0.661"><failure message="AssertionError: [{&quot;id&quot;: 1, &quot;owner&quot;: &quot;ali&quot;, &quot;title&quot;: &quot;Ali measurements&quot;}, {&quot;id&quot;: 2, &quot;owner&quot;: &quot;john&quot;, &quot;title&quot;: &quot;John measurements&quot;}]&#10;assert False&#10; +  where False = all(&lt;generator object test_v1_sql_injection.&lt;locals&gt;.&lt;genexpr&gt; at 0x7f1a0950f1d0&gt;)">client = &lt;httpx.Client object at 0x7f1a0979c530&gt;
+<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="0" failures="4" skipped="0" tests="4" time="1.411" timestamp="2026-10-22T13:10:17.614020+03:00" hostname="14a02f47f6f3"><testcase classname="tests.test_http" name="test_v1_sql_injection" time="0.641"><failure message="AssertionError: [{&quot;id&quot;: 1, &quot;owner&quot;: &quot;ali&quot;, &quot;title&quot;: &quot;Ali measurements&quot;}, {&quot;id&quot;: 2, &quot;owner&quot;: &quot;john&quot;, &quot;title&quot;: &quot;John measurements&quot;}]&#10;assert False&#10; +  where False = all(&lt;generator object test_v1_sql_injection.&lt;locals&gt;.&lt;genexpr&gt; at 0x7f8b72cde9b0&gt;)">client = &lt;httpx.Client object at 0x7f8b72cf1c70&gt;
 
     def test_v1_sql_injection(client):
         response = client.get("/datasets", params={"q": "' OR 1=1 --"}, headers=auth(client))
@@ -6,9 +6,9 @@
 &gt;       assert all(row["owner"] == "ali" for row in response.json()), json.dumps(response.json())
 E       AssertionError: [{"id": 1, "owner": "ali", "title": "Ali measurements"}, {"id": 2, "owner": "john", "title": "John measurements"}]
 E       assert False
-E        +  where False = all(&lt;generator object test_v1_sql_injection.&lt;locals&gt;.&lt;genexpr&gt; at 0x7f1a0950f1d0&gt;)
+E        +  where False = all(&lt;generator object test_v1_sql_injection.&lt;locals&gt;.&lt;genexpr&gt; at 0x7f8b72cde9b0&gt;)
 
-tests/test_http.py:58: AssertionError</failure></testcase><testcase classname="tests.test_http" name="test_v2_cross_user_read" time="0.062"><failure message="AssertionError: {&quot;id&quot;:2,&quot;title&quot;:&quot;John measurements&quot;,&quot;values&quot;:[40,50]}&#10;assert 200 == 404&#10; +  where 200 = &lt;Response [200 OK]&gt;.status_code">client = &lt;httpx.Client object at 0x7f1a0952baa0&gt;
+tests/test_http.py:58: AssertionError</failure></testcase><testcase classname="tests.test_http" name="test_v2_cross_user_read" time="0.064"><failure message="AssertionError: {&quot;id&quot;:2,&quot;title&quot;:&quot;John measurements&quot;,&quot;values&quot;:[40,50]}&#10;assert 200 == 404&#10; +  where 200 = &lt;Response [200 OK]&gt;.status_code">client = &lt;httpx.Client object at 0x7f8b72cf3230&gt;
 
     def test_v2_cross_user_read(client):
         response = client.get("/datasets/2", headers=auth(client))
@@ -17,7 +17,7 @@ E       AssertionError: {"id":2,"title":"John measurements","values":[40,50]}
 E       assert 200 == 404
 E        +  where 200 = &lt;Response [200 OK]&gt;.status_code
 
-tests/test_http.py:63: AssertionError</failure></testcase><testcase classname="tests.test_http" name="test_v3_row_quota" time="0.061"><failure message="AssertionError: {&quot;id&quot;:3}&#10;assert 201 == 422&#10; +  where 201 = &lt;Response [201 Created]&gt;.status_code">client = &lt;httpx.Client object at 0x7f1a0955a5a0&gt;
+tests/test_http.py:63: AssertionError</failure></testcase><testcase classname="tests.test_http" name="test_v3_row_quota" time="0.066"><failure message="AssertionError: {&quot;id&quot;:3}&#10;assert 201 == 422&#10; +  where 201 = &lt;Response [201 Created]&gt;.status_code">client = &lt;httpx.Client object at 0x7f8b72cf2300&gt;
 
     def test_v3_row_quota(client):
         response = client.post("/datasets", headers=auth(client), json={"title": "Oversized", "values": [1] * 101})
@@ -26,7 +26,7 @@ E       AssertionError: {"id":3}
 E       assert 201 == 422
 E        +  where 201 = &lt;Response [201 Created]&gt;.status_code
 
-tests/test_http.py:68: AssertionError</failure></testcase><testcase classname="tests.test_http" name="test_v4_confused_deputy_export" time="0.285"><failure message="AssertionError: {&quot;dataset_id&quot;:2,&quot;status&quot;:&quot;ready&quot;}&#10;assert 200 == 404&#10; +  where 200 = &lt;Response [200 OK]&gt;.status_code">client = &lt;httpx.Client object at 0x7f1a093b9d60&gt;
+tests/test_http.py:68: AssertionError</failure></testcase><testcase classname="tests.test_http" name="test_v4_confused_deputy_export" time="0.309"><failure message="AssertionError: {&quot;dataset_id&quot;:2,&quot;status&quot;:&quot;ready&quot;}&#10;assert 200 == 404&#10; +  where 200 = &lt;Response [200 OK]&gt;.status_code">client = &lt;httpx.Client object at 0x7f8b72d2d430&gt;
 
     def test_v4_confused_deputy_export(client):
         response = client.post("/datasets/2/export", headers=auth(client))

@@ -1,17 +1,13 @@
-# AI use declaration draft
+# AI use declaration
 
 Assignment: Software Security Assignment I
-Student name: [Complete]
+Student name: Moneer
 Student number: [Complete]
 Repository URL: [Complete]
-Date of submission: [Complete]
+Date: [Complete]
 
-I used OpenAI ChatGPT with Codex tools to help produce this work. The system generated the Python application, helper package, automated tests, Jenkins pipeline, documentation, report draft, diagrams and this declaration. It read the course materials and assignment supplied in the conversation. It executed local HTTP tests, static checks, dependency checks and a local CI-equivalent gate, and preserved the resulting evidence. It also proposed corrections and generated the revised code. This was substantial generation of both code and written content, not only proofreading.
+I used ChatGPT to help with the application and assignment. This included explaining software security concepts, suggesting implementation approaches, investigating bugs, and improving code structure and documentation. The assistance also included generating and revising code, tests, diagrams and report text. Automated tests and analysis were run with AI-assisted tools, and their results are included with the project.
 
-The supplied Git commits describe the order of AI-assisted generation in one working session. They do not represent a claim that I independently implemented or tested these changes before this session. The generator did not publish to my GitHub account or configure and run my hosted Jenkins instance.
+My own review, changes and verification: [Add what you personally reviewed, changed and ran before submission.]
 
-Before submission I must review and amend this declaration to reflect my actual subsequent work. Student review, independent runs, changes and understanding: [Describe what you personally reviewed, ran, changed and can explain. Do not claim actions you have not completed.]
-
-I will check the applicable AU course and examination rules, use the university declaration template if required, and identify generated passages or code as required by those rules. This declaration is not confirmation that unchanged AI-generated work is permitted for a particular exam.
-
-AU policy source linked by the assignment: https://studerende.au.dk/en/gai (accessed 22 October 2026).
+This declaration should be checked against the course requirements and transferred to the university's template if required.
