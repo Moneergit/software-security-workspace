@@ -1,0 +1,9 @@
+[build-system]
+requires = ["setuptools==84.0.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "workspace-csv"
+version = "1.0.0"
+description = "Small CSV serializer used by the processing service"
+requires-python = ">=3.12"
