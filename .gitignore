@@ -1,9 +1,44 @@
+# Python virtual environments and installed packages
+.env/
 .venv/
+ENV/
+env/
+venv/
+Lib/site-packages/
+Scripts/
+pyvenv.cfg
+
+# Python caches
 __pycache__/
+*.py[cod]
 .pytest_cache/
 .ruff_cache/
+
+# Build output
 *.egg-info/
 build/
 dist/
+
+# Local application data and generated reports
 .runtime/
 reports/
+
+# Test coverage output
+.coverage
+.coverage.*
+htmlcov/
+
+# Local secrets — keep example configuration files
+.env
+.env.*
+!.env.example
+
+# Temporary files
+*.log
+*.tmp
+*.swp
+*~
+
+# Operating system files
+.DS_Store
+Thumbs.db

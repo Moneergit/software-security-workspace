@@ -1,0 +1,13 @@
+[main]	INFO	profile include tests: None
+[main]	INFO	profile exclude tests: None
+[main]	INFO	cli include tests: None
+[main]	INFO	cli exclude tests: None
+[manager]	WARNING	Test in comment: OAuth is not a test name or id, ignoring
+[manager]	WARNING	Test in comment: response is not a test name or id, ignoring
+[manager]	WARNING	Test in comment: scheme is not a test name or id, ignoring
+[manager]	WARNING	Test in comment: not is not a test name or id, ignoring
+[manager]	WARNING	Test in comment: a is not a test name or id, ignoring
+[manager]	WARNING	Test in comment: password is not a test name or id, ignoring
+[tester]	WARNING	nosec encountered (B105), but no failed test on file workspace_app\api.py:59
+[tester]	WARNING	nosec encountered (B105), but no failed test on file workspace_app\api.py:62
+[json]	INFO	JSON output written to file: reports/bandit.json

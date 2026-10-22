@@ -1,8 +1,0 @@
-4c951b6 (HEAD -> main) Use readable command formatting in the Windows guide
-4c8aa89 (tag: windows-workflow) Update report and Windows submission guide with the simple command workflow
-36cd248 Simplify Windows setup run tests and GitHub submission with a root launcher
-00df1a8 (tag: submission-draft) Package report declaration and submission checklist with verified evidence
-10d6825 (tag: verified-local-gates) Add reproducible dependency gates Jenkins pipeline and forty passing tests
-716e188 (tag: fixed-boundaries) Fix SQL injection ownership validation and export delegation boundaries
-dcabff9 (tag: vulnerable-lab) Implement three services with four deliberate weaknesses and regression probes
-faf9582 Plan all four SSDLC phases before feature implementation
